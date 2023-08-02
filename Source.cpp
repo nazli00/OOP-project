@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include<algorithm>
 using namespace std;
 
 class Menu {
@@ -47,7 +48,7 @@ public:
     Quiz() = default;
 
     Quiz(const string& quizname) : quizname(quizname), totalPoints(0), numberofquestion(0),
-        numCorrect(0), numSkipped(0),score(0) {
+        numCorrect(0), numSkipped(0), score(0) {
         LoadExistingQuizzes();
     }
 
@@ -58,7 +59,7 @@ public:
     }
 
     void SetNumberOfQuestions(int num) {
-        if (numberofquestion!=0)
+        if (numberofquestion != 0)
         {
             numberofquestion = num;
         }
@@ -98,9 +99,6 @@ public:
 
     void LoadExistingQuizzes() {
         ifstream inFile("existing_quizzes.txt");
-        if (!inFile) {
-            return;
-        }
 
         string quizFile;
         while (getline(inFile, quizFile)) {
@@ -141,8 +139,6 @@ public:
         vector<string> answerChoices;
         int correctAnswerIndex, point;
 
-        q.clear();
-
         while (getline(inFile, question)) {
             answerChoices.clear();
             for (int i = 0; i < 4; ++i) {
@@ -165,7 +161,6 @@ public:
 
     void CreateQuiz() {
         cin.ignore();
-        cin.clear();
         cout << "Enter Quiz name: ";
         getline(cin, quizname);
 
@@ -179,15 +174,11 @@ public:
                 int correctAnswerIndex;
                 int point;
 
-                cin.ignore();
-                cin.clear();
                 cout << "Question " << currentQuestionIndex + 1 << ": ";
                 getline(cin, question);
 
                 for (int j = 0; j < 4; ++j) {
                     cout << "Answer " << j + 1 << ": ";
-                    cin.ignore();
-                    cin.clear();
                     getline(cin, answerChoices[j]);
                 }
 
@@ -233,7 +224,7 @@ public:
                 cout << "Invalid option. Please try again." << endl;
             }
 
-            cin.ignore(); 
+            cin.ignore();
             if (currentQuestionIndex >= 0 && currentQuestionIndex < q.size()) {
                 cout << "Question " << currentQuestionIndex + 1 << ": " << q[currentQuestionIndex].GetQuestion() << endl;
                 vector<string> answerChoices = q[currentQuestionIndex].GetAnswerChoices();
@@ -251,7 +242,7 @@ public:
     void ModifyCurrentQuestion(int currentQuestionIndex) {
         if (currentQuestionIndex >= 0 && currentQuestionIndex < q.size()) {
             string question;
-            vector<string> answerChoices(4); 
+            vector<string> answerChoices(4);
             int correctAnswerIndex;
             int point;
 
@@ -282,7 +273,7 @@ public:
     }
 
     void StartQuiz() {
-        
+
         int totalQuestions = q.size();
         if (totalQuestions == 0) {
             cout << "No questions available in this quiz." << endl;
@@ -323,7 +314,7 @@ public:
             }
             else if (userAnswer == 0) {
                 cout << "Skipped!" << endl;
-                numSkipped++; 
+                numSkipped++;
             }
             else {
                 cout << "Invalid choice. Skipping the question." << endl;
@@ -446,9 +437,6 @@ public:
 
     void LoadLeaderboardFromFile() {
         ifstream inFile("leaderboard.txt");
-        if (!inFile) {
-            return;
-        }
 
         leaderboard.clear();
 
@@ -466,7 +454,7 @@ public:
 };
 
 int main() {
-    int choice=0;
+    int choice = 1;
     string Name;
     Quiz quiz;
     Leaderboard leaderboard;
@@ -530,5 +518,5 @@ int main() {
             cout << "Invalid choice. Please try again." << endl;
         }
 
-    } 
+    }
 }
