@@ -1,0 +1,5 @@
+Nazli	43
+Jane	31
+Sabina	17
+Tom	17
+Joo	6
